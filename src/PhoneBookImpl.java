@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class PhoneBookImpl implements PhoneBook_LinkedList{
@@ -29,20 +30,80 @@ public class PhoneBookImpl implements PhoneBook_LinkedList{
 
     @Override
     public void add(Contact contact) {
+        PhoneBookNode newNode = new PhoneBookNode(contact);
+        if (isEmpty()){
+            head = tail = newNode;
+        } else {
+            tail.next = newNode;
+            tail = newNode;
+        }
+        size++;
     }
 
     @Override
-    public PhoneBookNode findByFirstName(String firstName) {
+    public PhoneBookNode findByFirstName(String firstName) throws Exception {
+        if (isEmpty()){
+            throw new Exception();
+        }
+        PhoneBookNode current = head;
+        while (current != null){
+            if (current.contact.firstName.equals(firstName)){
+                return current;
+            }
+            current = current.next;
+        }
+
         return null;
     }
 
     @Override
-    public List<PhoneBookNode> findAllByLastName(String lastName) {
-        return null;
+    public List<PhoneBookNode> findAllByLastName(String lastName) throws Exception {
+        if (isEmpty()){
+            throw new Exception();
+        }
+        List<PhoneBookNode> result = new ArrayList<>();
+        PhoneBookNode current = head;
+        while (current != null){
+            if (current.contact.lastName.equals(lastName)){
+                result.add(current);
+            }
+            current = current.next;
+        }
+
+        return result;
     }
 
     @Override
-    public void deleteByFirstName(String firstName) {
+    public void deleteByFirstName(String firstName) throws Exception {
+
+        if (isEmpty()){
+            throw new Exception();
+        }
+        PhoneBookNode current = head;
+        PhoneBookNode prev = head;
+
+        while (current != null){
+            if (current.contact.firstName.equals(firstName)){
+                if (current == head){
+                    if (size == 1){
+                        head = tail = null;
+                    } else {
+                        head = current.next;
+                    }
+                } else if (current == tail) {
+                    tail = prev;
+                    prev.next = null;
+                } else {
+                    //  P -> C -> N
+                    //  P -> N
+                    prev.next = current.next;
+                }
+                size--;
+                return;
+            }
+            prev = current;
+            current = current.next;
+        }
 
     }
 

@@ -10,11 +10,11 @@ public interface PhoneBook_LinkedList {
 
     void add(Contact contact);
 
-    PhoneBookNode findByFirstName(String firstName);
+    PhoneBookNode findByFirstName(String firstName) throws Exception;
 
-    List<PhoneBookNode> findAllByLastName(String lastName);
+    List<PhoneBookNode> findAllByLastName(String lastName) throws Exception;
 
-    void deleteByFirstName(String firstName);
+    void deleteByFirstName(String firstName) throws Exception;
 
     void deleteAllMatchingLastName(String lastName);
 

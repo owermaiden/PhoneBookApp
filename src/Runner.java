@@ -1,6 +1,6 @@
 public class Runner {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         PhoneBook_LinkedList phoneBook = new PhoneBookImpl();
 
@@ -10,12 +10,20 @@ public class Runner {
         phoneBook.add(new Contact("Scottie", "Pippen",
                 "pippen@gmail.com", "(342) 456-1287"));
 
-        phoneBook.add(new Contact("Scottie", "Pippen",
+        phoneBook.add(new Contact("Mary", "Pippen",
                 "pippen@gmail.com", "(342) 456-1287"));
 
 
         System.out.println("*****Print all records*****");
         phoneBook.printPhoneBook();
+        System.out.println("--------------------------------");
+        System.out.println(phoneBook.findByFirstName("Larry"));
+        System.out.println("--------------------------------");
+        System.out.println(phoneBook.findAllByLastName("Pippen"));
+        System.out.println("--------------------------------");
+        phoneBook.deleteByFirstName("Mary");
+        phoneBook.printPhoneBook();
+
     }
 
 
